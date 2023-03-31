@@ -1,0 +1,19 @@
+defaultChannels: ["#services"]
+commandPrefix: ";"
+
+operUser: "jupebot"
+operPass: "changeme"
+
+ircConfiguration:
+  clientName: BaseClient
+  hostname: irc.example.net
+  port: 6697
+  ssl: true
+  authToServices: true
+  nickname: JupeBot
+  realName: Jupiter
+  username: jupe
+  servicesUsername: JupeBot
+  servicesPassword: changeme
+  restartOnHeavyLag: false
+  reclaimNickFromServices: true
