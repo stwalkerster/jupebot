@@ -33,8 +33,12 @@ public class ClientCommand : CommandBase
     [RequiredArguments(1)]
     protected IEnumerable<CommandResponse> New()
     {
+        this.Client.SendMessage(this.CommandSource, "Introducing client...");
+        
         this.jupeManager.IntroduceClient(this.Arguments[0], "jupiter/" + this.Arguments[0]);
         this.jupeManager.Inject(this.Arguments[0], "JOIN " + this.CommandSource);
+        
+        this.Client.SendMessage(this.CommandSource, "Hello, " + this.Arguments[0] + ".");
 
         yield break;
     }
