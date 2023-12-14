@@ -27,15 +27,19 @@ public class JupeManager : IJupeManager
     {
         var newConfiguration = this.botConfiguration.IrcConfiguration.Clone();
         newConfiguration.AuthToServices = false;
+        newConfiguration.ServicesCertificate = null;
+        newConfiguration.ServicesUsername = null;
+        newConfiguration.ServicesPassword = null;
+        
         newConfiguration.ClientName = Guid.NewGuid().ToString();
         newConfiguration.RealName = "JUPITER " + newConfiguration.ClientName;
         newConfiguration.Nickname = nickname;
 
         var client = new IrcClient(this.loggerFactory, newConfiguration.ToConfiguration(), this.supportHelper);
         client.WaitOnRegistration();
-        client.Mode(client.Nickname, "+D");
+        client.Mode(client.Nickname, this.botConfiguration.ClientMode);
 
-        if (host != null)
+        if (host != null && botConfiguration.DoChghost)
         {
             this.baseClient.Send(new Message("CHGHOST", new[] { client.Nickname, host }));
         }

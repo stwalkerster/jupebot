@@ -4,6 +4,9 @@ commandPrefix: ";"
 operUser: "jupebot"
 operPass: "changeme"
 
+clientMode: "+D"
+doChghost: true
+
 ircConfiguration:
   clientName: BaseClient
   hostname: irc.example.net
@@ -15,5 +18,6 @@ ircConfiguration:
   username: jupe
   servicesUsername: JupeBot
   servicesPassword: changeme
+  servicesCertificate: /path/to/cert.pfx
   restartOnHeavyLag: false
   reclaimNickFromServices: true

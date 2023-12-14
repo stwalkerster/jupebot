@@ -33,13 +33,16 @@ public class ClientCommand : CommandBase
     [RequiredArguments(1)]
     protected IEnumerable<CommandResponse> New()
     {
-        this.Client.SendMessage(this.CommandSource, "Introducing client...");
+        foreach (var clientNick in this.Arguments)
+        {
+            this.Client.SendMessage(this.CommandSource, "Introducing client...");
         
-        this.jupeManager.IntroduceClient(this.Arguments[0], "jupiter/" + this.Arguments[0]);
-        this.jupeManager.Inject(this.Arguments[0], "JOIN " + this.CommandSource);
+            this.jupeManager.IntroduceClient(clientNick, "jupiter/" + clientNick);
+            this.jupeManager.Inject(clientNick, "JOIN " + this.CommandSource);
         
-        this.Client.SendMessage(this.CommandSource, "Hello, " + this.Arguments[0] + ".");
-
+            this.Client.SendMessage(this.CommandSource, "Hello, " + clientNick + ".");
+        }
+        
         yield break;
     }
     
@@ -56,7 +59,10 @@ public class ClientCommand : CommandBase
     [RequiredArguments(1)]
     protected IEnumerable<CommandResponse> Delete()
     {
-        this.jupeManager.ExitClient(this.Arguments[0]);
+        foreach (var clientNick in this.Arguments)
+        {
+            this.jupeManager.ExitClient(clientNick);
+        }
 
         yield break;
     }
