@@ -23,8 +23,14 @@ public class JupeManager : IJupeManager
         this.baseClient = baseClient;
     }
     
-    public void IntroduceClient(string nickname, string? host)
+    public bool IntroduceClient(string nickname, string? host)
     {
+        var firstOrDefault = this.clients.FirstOrDefault(x => x.Nickname == nickname);
+        if (firstOrDefault != null)
+        {
+            return false;
+        }
+        
         var newConfiguration = this.botConfiguration.IrcConfiguration.Clone();
         newConfiguration.AuthToServices = false;
         newConfiguration.ServicesCertificate = null;
@@ -45,6 +51,8 @@ public class JupeManager : IJupeManager
         }
         
         this.clients.Add(client);
+
+        return true;
     }
 
     public void ExitClient(string nickname)

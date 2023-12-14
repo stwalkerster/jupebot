@@ -33,15 +33,19 @@ public class ClientCommand : CommandBase
     [RequiredArguments(1)]
     protected IEnumerable<CommandResponse> New()
     {
-        foreach (var clientNick in this.Arguments)
+        this.Client.SendMessage(this.CommandSource, $"Introducing {this.Arguments.Count} client(s)...");
+        
+        Parallel.ForEach(this.Arguments, clientNick =>
         {
-            this.Client.SendMessage(this.CommandSource, "Introducing client...");
-        
-            this.jupeManager.IntroduceClient(clientNick, "jupiter/" + clientNick);
+            var success = this.jupeManager.IntroduceClient(clientNick, "jupiter/" + clientNick);
+
+            if (!success)
+            {
+                this.Client.SendMessage(this.CommandSource, $"Cannot introduce {clientNick}; already known.");
+            }
+            
             this.jupeManager.Inject(clientNick, "JOIN " + this.CommandSource);
-        
-            this.Client.SendMessage(this.CommandSource, "Hello, " + clientNick + ".");
-        }
+        });
         
         yield break;
     }
