@@ -1,6 +1,6 @@
 namespace IrcClientJupe.Commands;
 
-using Castle.Core.Logging;
+using Microsoft.Extensions.Logging;
 using Stwalkerster.Bot.CommandLib.Attributes;
 using Stwalkerster.Bot.CommandLib.Commands.CommandUtilities;
 using Stwalkerster.Bot.CommandLib.Commands.CommandUtilities.Response;
