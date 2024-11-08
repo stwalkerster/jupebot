@@ -15,4 +15,6 @@ public class ConfigProvider : IConfigurationProvider
     public string DebugChannel => this.config.DefaultChannels.First();
     public bool AllowQuotedStrings => true;
     public bool IncludeBuiltins => false;
+    
+    public string UseCommandInitSeparator => null;
 }
